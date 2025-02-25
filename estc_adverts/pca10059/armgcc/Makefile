@@ -3,8 +3,8 @@ TARGETS          := nrf52840_xxaa
 OUTPUT_DIRECTORY := _build
 DFU_PORT         ?= /dev/ttyACM0
 
-SDK_ROOT := ../../../../../..
-PROJ_DIR := ../../..
+SDK_ROOT ?= ~/devel/esl-nsdk
+PROJ_DIR := ../..
 
 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
   LINKER_SCRIPT  := estc_adverts_gcc_nrf52.ld
