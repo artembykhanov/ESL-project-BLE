@@ -2779,131 +2779,79 @@
 
 // </e>
 
-// </e>
-
 // <e> NRFX_PWM_ENABLED - nrfx_pwm - PWM peripheral driver
 //==========================================================
 #ifndef NRFX_PWM_ENABLED
-#define NRFX_PWM_ENABLED 0
+#define NRFX_PWM_ENABLED 1
 #endif
+
 // <q> NRFX_PWM0_ENABLED  - Enable PWM0 instance
  
 
 #ifndef NRFX_PWM0_ENABLED
-#define NRFX_PWM0_ENABLED 0
+#define NRFX_PWM0_ENABLED 1
 #endif
 
 // <q> NRFX_PWM1_ENABLED  - Enable PWM1 instance
  
 
 #ifndef NRFX_PWM1_ENABLED
-#define NRFX_PWM1_ENABLED 0
+#define NRFX_PWM1_ENABLED 1
 #endif
 
 // <q> NRFX_PWM2_ENABLED  - Enable PWM2 instance
  
 
 #ifndef NRFX_PWM2_ENABLED
-#define NRFX_PWM2_ENABLED 0
+#define NRFX_PWM2_ENABLED 1
 #endif
 
 // <q> NRFX_PWM3_ENABLED  - Enable PWM3 instance
  
 
 #ifndef NRFX_PWM3_ENABLED
-#define NRFX_PWM3_ENABLED 0
+#define NRFX_PWM3_ENABLED 1
 #endif
-
-// <o> NRFX_PWM_DEFAULT_CONFIG_OUT0_PIN - Out0 pin  <0-31> 
-
 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_OUT0_PIN
-#define NRFX_PWM_DEFAULT_CONFIG_OUT0_PIN 31
+#define NRFX_PWM_DEFAULT_CONFIG_OUT0_PIN NRF_GPIO_PIN_MAP(0, 6) // LED 1
 #endif
-
-// <o> NRFX_PWM_DEFAULT_CONFIG_OUT1_PIN - Out1 pin  <0-31> 
-
 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_OUT1_PIN
-#define NRFX_PWM_DEFAULT_CONFIG_OUT1_PIN 31
+#define NRFX_PWM_DEFAULT_CONFIG_OUT1_PIN NRF_GPIO_PIN_MAP(0, 8) // LED 2 Red
 #endif
-
-// <o> NRFX_PWM_DEFAULT_CONFIG_OUT2_PIN - Out2 pin  <0-31> 
-
 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_OUT2_PIN
-#define NRFX_PWM_DEFAULT_CONFIG_OUT2_PIN 31
+#define NRFX_PWM_DEFAULT_CONFIG_OUT2_PIN NRF_GPIO_PIN_MAP(1, 9) // LED 2 Green
 #endif
-
-// <o> NRFX_PWM_DEFAULT_CONFIG_OUT3_PIN - Out3 pin  <0-31> 
-
 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_OUT3_PIN
-#define NRFX_PWM_DEFAULT_CONFIG_OUT3_PIN 31
+#define NRFX_PWM_DEFAULT_CONFIG_OUT3_PIN NRF_GPIO_PIN_MAP(0, 12) // LED 2 Blue
 #endif
 
-// <o> NRFX_PWM_DEFAULT_CONFIG_BASE_CLOCK  - Base clock
- 
-// <0=> 16 MHz 
-// <1=> 8 MHz 
-// <2=> 4 MHz 
-// <3=> 2 MHz 
-// <4=> 1 MHz 
-// <5=> 500 kHz 
-// <6=> 250 kHz 
-// <7=> 125 kHz 
-
+// Базовые параметры PWM
 #ifndef NRFX_PWM_DEFAULT_CONFIG_BASE_CLOCK
-#define NRFX_PWM_DEFAULT_CONFIG_BASE_CLOCK 4
+#define NRFX_PWM_DEFAULT_CONFIG_BASE_CLOCK 4 // Частота 1 MHz
 #endif
 
-// <o> NRFX_PWM_DEFAULT_CONFIG_COUNT_MODE  - Count mode
- 
-// <0=> Up 
-// <1=> Up and Down 
-
-#ifndef NRFX_PWM_DEFAULT_CONFIG_COUNT_MODE
-#define NRFX_PWM_DEFAULT_CONFIG_COUNT_MODE 0
-#endif
-
-// <o> NRFX_PWM_DEFAULT_CONFIG_TOP_VALUE - Top value 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_TOP_VALUE
 #define NRFX_PWM_DEFAULT_CONFIG_TOP_VALUE 1000
 #endif
 
-// <o> NRFX_PWM_DEFAULT_CONFIG_LOAD_MODE  - Load mode
- 
-// <0=> Common 
-// <1=> Grouped 
-// <2=> Individual 
-// <3=> Waveform 
-
 #ifndef NRFX_PWM_DEFAULT_CONFIG_LOAD_MODE
-#define NRFX_PWM_DEFAULT_CONFIG_LOAD_MODE 0
+#define NRFX_PWM_DEFAULT_CONFIG_LOAD_MODE 0 // Общая нагрузка для всех каналов
 #endif
 
-// <o> NRFX_PWM_DEFAULT_CONFIG_STEP_MODE  - Step mode
- 
-// <0=> Auto 
-// <1=> Triggered 
+#ifndef NRFX_PWM_DEFAULT_CONFIG_COUNT_MODE
+#define NRFX_PWM_DEFAULT_CONFIG_COUNT_MODE 0 // Режим счета "Up"
+#endif
 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_STEP_MODE
-#define NRFX_PWM_DEFAULT_CONFIG_STEP_MODE 0
+#define NRFX_PWM_DEFAULT_CONFIG_STEP_MODE 0 // Автоматическая генерация шагов
 #endif
 
-// <o> NRFX_PWM_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority
- 
-// <0=> 0 (highest) 
-// <1=> 1 
-// <2=> 2 
-// <3=> 3 
-// <4=> 4 
-// <5=> 5 
-// <6=> 6 
-// <7=> 7 
-
 #ifndef NRFX_PWM_DEFAULT_CONFIG_IRQ_PRIORITY
-#define NRFX_PWM_DEFAULT_CONFIG_IRQ_PRIORITY 6
+#define NRFX_PWM_DEFAULT_CONFIG_IRQ_PRIORITY 6 // Приоритет прерывания
 #endif
 
 // <e> NRFX_PWM_CONFIG_LOG_ENABLED - Enables logging in the module.
@@ -5023,7 +4971,7 @@
 // <e> PWM_ENABLED - nrf_drv_pwm - PWM peripheral driver - legacy layer
 //==========================================================
 #ifndef PWM_ENABLED
-#define PWM_ENABLED 0
+#define PWM_ENABLED 1
 #endif
 // <o> PWM_DEFAULT_CONFIG_OUT0_PIN - Out0 pin  <0-31> 
 
@@ -5123,28 +5071,28 @@
  
 
 #ifndef PWM0_ENABLED
-#define PWM0_ENABLED 0
+#define PWM0_ENABLED 1
 #endif
 
 // <q> PWM1_ENABLED  - Enable PWM1 instance
  
 
 #ifndef PWM1_ENABLED
-#define PWM1_ENABLED 0
+#define PWM1_ENABLED 1
 #endif
 
 // <q> PWM2_ENABLED  - Enable PWM2 instance
  
 
 #ifndef PWM2_ENABLED
-#define PWM2_ENABLED 0
+#define PWM2_ENABLED 1
 #endif
 
 // <q> PWM3_ENABLED  - Enable PWM3 instance
  
 
 #ifndef PWM3_ENABLED
-#define PWM3_ENABLED 0
+#define PWM3_ENABLED 1
 #endif
 
 // </e>
@@ -6182,7 +6130,7 @@
  
 
 #ifndef APP_PWM_ENABLED
-#define APP_PWM_ENABLED 0
+#define APP_PWM_ENABLED 1
 #endif
 
 // <e> APP_SCHEDULER_ENABLED - app_scheduler - Events scheduler
@@ -6925,7 +6873,7 @@
  
 
 #ifndef LOW_POWER_PWM_ENABLED
-#define LOW_POWER_PWM_ENABLED 0
+#define LOW_POWER_PWM_ENABLED 1
 #endif
 
 // <e> MEM_MANAGER_ENABLED - mem_manager - Dynamic memory allocator
