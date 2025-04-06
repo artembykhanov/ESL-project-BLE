@@ -2,42 +2,65 @@
 #define ESTC_SERVICE_H__
 
 #include <stdint.h>
-
+#include <stdbool.h>
 #include "ble.h"
+#include "ble_srv_common.h"
+#include "nrf_sdh_ble.h"
 #include "sdk_errors.h"
 
-// DONE: 1. Generate random BLE UUID (Version 4 UUID) and define it in the following format:
-#define RANDOM_BASE_UUID {0x41, 0xC1, 0xB0, 0x2D, 0x56, 0x32, /* - */ 0x1B, 0xA2, /* - */ 0xF9, 0x4A, /* - */ 0x3A, 0x6B, /* - */ 0xF1, 0xB1, 0x69, 0xA9}
-// UUID: a969b1f1-6b3a-4af9-a21b-32562db0c141
+/**@brief   Macro for defining a ble_lbs instance.
+ *
+ * @param   _name   Name of the instance.
+ * @hideinitializer
+ */
+#define BLE_LBS_DEF(_name)                          \
+    static ble_estc_service_t _name;                \
+    NRF_SDH_BLE_OBSERVER(_name##_obs,               \
+                         BLE_LBS_BLE_OBSERVER_PRIO, \
+                         ble_lbs_on_ble_evt, &_name)
 
-// DONE: 2. Pick a random service 16-bit UUID and define it:
-#define RANDOM_SERVICE_UUID 0x9000
+#define RANDOM_BASE_UUID {0x23, 0xD1, 0xBC, 0xEA, 0x5F, 0x78, 0x23, 0x15, \
+                          0xDE, 0xEF, 0x12, 0x12, 0x00, 0x00, 0x00, 0x00}
+#define RANDOM_SERVICE_UUID 0x1523 // Service UUID
 
-// Done: 3. Pick a characteristic UUID and define it:
-#define RANDOM_CHARACTERISTIC_UUID_1 0x9001
-#define RANDOM_CHARACTERISTIC_UUID_2 0x9002
+#define RANDOM_CHARACTERISTIC_UUID_RGB_STATE 0x1525 // RGB STATE characteristic UUID
+#define RANDOM_CHARACTERISTIC_UUID_RGB_VALUE 0x1526 // RGB VALUE characteristic UUID
 
-#define INITIAL_VALUE_1 0
-#define INITIAL_VALUE_2 0
-#define CHARACTERISTIC_1_DESC "Characteristic 1: 2-byte read/write"
-#define CHARACTERISTIC_2_DESC "Characteristic 2: 4-byte only read"
-#define CHARACTERISTIC_1_PROPERTIES_NOTIFY 1
-#define CHARACTERISTIC_2_PROPERTIES_INDICATE 1
+#define CHARACTERISTIC_RGB_STATE_SIZE sizeof(uint8_t)
+#define CHARACTERISTIC_RGB_VALUE_SIZE (sizeof(uint8_t) * 3)
 
+struct ble_estc_service_s;
+
+// RGB state characteristic write event handler type
+typedef void (*ble_lbs_rgb_state_write_handler_t)(uint16_t conn_handle, struct ble_estc_service_s *p_lbs, uint8_t new_state);
+
+// RGB value characteristic write event handler type
+typedef void (*ble_lbs_rgb_value_write_handler_t)(uint16_t conn_handle, struct ble_estc_service_s *p_lbs, uint8_t r, uint8_t g, uint8_t b);
+
+/** @brief LED Button Service init structure. This structure contains all options and data needed for
+ *        initialization of the service.*/
 typedef struct
 {
-    uint16_t service_handle;
-    uint16_t connection_handle;
-    uint8_t uuid_type;
+    ble_lbs_rgb_state_write_handler_t rgb_state_write_handler; // Event handler to be called when RGB state characteristic is written.
+    ble_lbs_rgb_value_write_handler_t rgb_value_write_handler; // Event handler to be called when RGB value characteristic is written.
+} ble_lbs_init_t;
 
-    // Done: 6.3. Add handles for characterstic (type: ble_gatts_char_handles_t)
-    ble_gatts_char_handles_t characteristic_handles_1;
-    ble_gatts_char_handles_t characteristic_handles_2;
+typedef struct ble_estc_service_s
+{
+    uint16_t service_handle;
+    uint8_t uuid_type;
+    uint16_t connection_handle;
+    ble_lbs_rgb_state_write_handler_t rgb_state_write_handler;
+    ble_lbs_rgb_value_write_handler_t rgb_value_write_handler;
+
+    ble_gatts_char_handles_t rgb_state_characteristic_handles;
+    ble_gatts_char_handles_t rgb_value_characteristic_handles;
 } ble_estc_service_t;
 
-ret_code_t estc_ble_service_init(ble_estc_service_t *service);
+ret_code_t estc_ble_service_init(ble_estc_service_t *service, const ble_lbs_init_t *lbs_init);
+void estc_characteristic_init_values(uint8_t rgb_state, uint8_t r, uint8_t g, uint8_t b);
 
-void estc_ble_service_on_ble_event(const ble_evt_t *ble_evt, void *ctx);
+void ble_lbs_on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context);
 
 void estc_update_characteristic_1_value(ble_estc_service_t *service, int32_t *value);
 

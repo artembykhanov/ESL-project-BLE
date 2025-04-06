@@ -20,6 +20,9 @@ SRC_FILES += \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_uart.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_power.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_gpiote.c \
+  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_pwm.c \
+  $(SDK_ROOT)/components/libraries/fstorage/nrf_fstorage.c \
+  $(SDK_ROOT)/components/libraries/fstorage/nrf_fstorage_sd.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_clock.c \
   $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_uart.c \
   $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_power.c \
@@ -94,6 +97,9 @@ SRC_FILES += \
   $(SDK_ROOT)/components/ble/common/ble_advdata.c \
   $(SDK_ROOT)/components/ble/ble_advertising/ble_advertising.c \
   $(PROJ_DIR)/estc_service.c \
+  $(PROJ_DIR)/pwm_control.c \
+  $(PROJ_DIR)/flash_storage.c \
+  $(PROJ_DIR)/ble_module.c \
   $(PROJ_DIR)/main.c \
 
 # Include folders common to all targets
@@ -227,6 +233,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_racp \
   $(SDK_ROOT)/components/ble/ble_dtm \
   $(SDK_ROOT)/components/ble/ble_advertising \
+  $(SDK_ROOT)/components/libraries/fstorage \
   $(SDK_ROOT)/components \
 
 # Libraries common to all targets
@@ -242,6 +249,7 @@ CFLAGS += $(OPT)
 CFLAGS += -DUSE_APP_CONFIG
 CFLAGS += -DAPP_TIMER_V2
 CFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
+CFLAGS += -DNRFX_PWM_ENABLED=1
 CFLAGS += -DBOARD_PCA10059
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
