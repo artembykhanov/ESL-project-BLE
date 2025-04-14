@@ -67,7 +67,7 @@ void rgb_state_write_handler(uint16_t conn_handle, ble_estc_service_t *p_lbs, ui
     sd_ble_gatts_hvx(p_lbs->connection_handle, &hvx_params);
     NRF_LOG_INFO("NOTIFY: RGB STATE characteristic value(%d)", new_state);
 
-    flash_storage_update_values(true, new_state, false, 0, 0, 0);
+    flash_storage_update_state(new_state);
 }
 
 void rgb_value_write_handler(uint16_t conn_handle, ble_estc_service_t *p_lbs, uint8_t r, uint8_t g, uint8_t b)
@@ -88,7 +88,7 @@ void rgb_value_write_handler(uint16_t conn_handle, ble_estc_service_t *p_lbs, ui
 
     pwm_set_rgb_color(r, g, b);
 
-    flash_storage_update_values(false, 0, true, r, g, b);
+    flash_storage_update_rgb(r, g, b);
 }
 
 /**@brief Function for the GAP initialization.

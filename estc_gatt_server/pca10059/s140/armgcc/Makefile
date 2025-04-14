@@ -198,6 +198,8 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/button \
   $(SDK_ROOT)/components/libraries/bsp \
   $(SDK_ROOT)/components/libraries/bootloader/ble_dfu \
+  $(SDK_ROOT)/components/libraries/bootloader \
+  $(SDK_ROOT)/components/libraries/bootloader/dfu \
   $(SDK_ROOT)/components/libraries/balloc \
   $(SDK_ROOT)/components/libraries/atomic_flags \
   $(SDK_ROOT)/components/libraries/atomic_fifo \
