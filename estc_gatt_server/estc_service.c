@@ -84,6 +84,7 @@ static ret_code_t estc_add_characteristic(ble_estc_service_t *service, ble_gatts
     char_props.max_len = size;
     char_props.init_len = size;
     char_props.p_init_value = p_init_value;
+    char_props.is_value_user = true;
 
     char_props.char_props.write = 1;
     char_props.char_props.read = 1;
